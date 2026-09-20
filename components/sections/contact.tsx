@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Send } from "lucide-react"
+import { Send, Loader2, CheckCircle2 } from "lucide-react"
 
 export function Contact() {
   const [values, setValues] = useState({
@@ -12,35 +12,62 @@ export function Contact() {
     details: "",
   })
 
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle")
+  const [errorMessage, setErrorMessage] = useState("")
+
   function update(key: keyof typeof values) {
     return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       setValues((prev) => ({ ...prev, [key]: e.target.value }))
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    setStatus("submitting")
+    setErrorMessage("")
 
-    const subject = "Anfrage: Mein persönlicher Song"
-    const body = [
-      "Hallo Mirko,",
-      "",
-      "hier sind die Details für meinen persönlichen Song:",
-      "",
-      `• Name der Hauptperson: ${values.person || "-"}`,
-      `• Aussprache des Namens: ${values.pronunciation || "-"}`,
-      `• Anlass des Songs: ${values.occasion || "-"}`,
-      `• Musikstil / Stimmung: ${values.style || "-"}`,
-      "• Wichtige Details für die Lyrics:",
-      `${values.details || "-"}`,
-      "",
-      "Viele Grüße",
-    ].join("\n")
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "347c0a33-7bab-4a68-806a-fc902bc97365",
+          subject: "Anfrage: Mein persönlicher Song",
+          from_name: values.person || "Song-Anfrage",
+          message: [
+            "Details für den persönlichen Song:",
+            "",
+            `• Name der Hauptperson: ${values.person || "-"}`,
+            `• Aussprache des Namens: ${values.pronunciation || "-"}`,
+            `• Anlass des Songs: ${values.occasion || "-"}`,
+            `• Musikstil / Stimmung: ${values.style || "-"}`,
+            "• Wichtige Details für die Lyrics:",
+            `${values.details || "-"}`,
+          ].join("\n"),
+        }),
+      })
 
-    const mailto = `mailto:neumannmirko77@gmail.com?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`
+      const result = await response.json()
 
-    window.location.href = mailto
+      if (result.success) {
+        setStatus("success")
+        setValues({
+          person: "",
+          pronunciation: "",
+          occasion: "",
+          style: "",
+          details: "",
+        })
+      } else {
+        setStatus("error")
+        setErrorMessage(result.message || "Etwas ist schiefgelaufen.")
+      }
+    } catch {
+      setStatus("error")
+      setErrorMessage("Netzwerkfehler. Bitte versuche es später noch einmal.")
+    }
   }
 
   return (
@@ -52,99 +79,129 @@ export function Contact() {
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-pretty text-muted-foreground">
           Fülle das Song-Profil aus – je mehr Details du mir gibst, desto persönlicher wird dein Song. Mit einem Klick
-          öffnet sich dein E-Mail-Programm mit allen Angaben.
+          wird deine Anfrage direkt an mich gesendet.
         </p>
       </div>
 
       <div className="glass rounded-3xl border border-border p-6 sm:p-8">
-        <form onSubmit={handleSubmit} className="grid gap-5">
-          <Field
-            label="Name der Hauptperson"
-            htmlFor="person"
-            hint="Für wen ist der Song? Vor- und ggf. Spitzname."
-          >
-            <input
-              id="person"
-              name="person"
-              required
-              value={values.person}
-              onChange={update("person")}
-              placeholder="z. B. Anna, Opa Willi …"
-              className={inputClass}
-            />
-          </Field>
+        {status === "success" ? (
+          <div className="py-12 text-center">
+            <CheckCircle2 className="mx-auto h-12 w-12 text-gold" />
+            <h3 className="mt-4 text-xl font-bold">Vielen Dank für deine Anfrage!</h3>
+            <p className="mt-2 text-muted-foreground">
+              Dein Song-Profil wurde erfolgreich verschickt. Ich melde mich bald bei dir!
+            </p>
+            <button
+              onClick={() => setStatus("idle")}
+              className="mt-6 inline-flex items-center justify-center rounded-full bg-secondary px-6 py-2 text-sm font-medium transition-colors hover:bg-secondary/80"
+            >
+              Weitere Anfrage senden
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="grid gap-5">
+            <Field
+              label="Name der Hauptperson"
+              htmlFor="person"
+              hint="Für wen ist der Song? Vor- und ggf. Spitzname."
+            >
+              <input
+                id="person"
+                name="person"
+                required
+                value={values.person}
+                onChange={update("person")}
+                placeholder="z. B. Anna, Opa Willi …"
+                className={inputClass}
+              />
+            </Field>
 
-          <Field
-            label="Genaue Aussprache des Namens"
-            htmlFor="pronunciation"
-            hint="Damit der Name im Song richtig klingt – lautschriftlich beschrieben."
-          >
-            <input
-              id="pronunciation"
-              name="pronunciation"
-              value={values.pronunciation}
-              onChange={update("pronunciation")}
-              placeholder="z. B. 'Maike' wie 'My-ke'"
-              className={inputClass}
-            />
-          </Field>
+            <Field
+              label="Genaue Aussprache des Namens"
+              htmlFor="pronunciation"
+              hint="Damit der Name im Song richtig klingt – lautschriftlich beschrieben."
+            >
+              <input
+                id="pronunciation"
+                name="pronunciation"
+                value={values.pronunciation}
+                onChange={update("pronunciation")}
+                placeholder="z. B. 'Maike' wie 'My-ke'"
+                className={inputClass}
+              />
+            </Field>
 
-          <Field
-            label="Anlass des Songs"
-            htmlFor="occasion"
-            hint="Wofür soll der Song sein?"
-          >
-            <input
-              id="occasion"
-              name="occasion"
-              required
-              value={values.occasion}
-              onChange={update("occasion")}
-              placeholder="z. B. Geburtstag, Hochzeit, Mutmacher …"
-              className={inputClass}
-            />
-          </Field>
+            <Field
+              label="Anlass des Songs"
+              htmlFor="occasion"
+              hint="Wofür soll der Song sein?"
+            >
+              <input
+                id="occasion"
+                name="occasion"
+                required
+                value={values.occasion}
+                onChange={update("occasion")}
+                placeholder="z. B. Geburtstag, Hochzeit, Mutmacher …"
+                className={inputClass}
+              />
+            </Field>
 
-          <Field
-            label="Gewünschter Musikstil / Stimmung"
-            htmlFor="style"
-            hint="Welches Genre und welche Gefühle soll der Song transportieren?"
-          >
-            <input
-              id="style"
-              name="style"
-              value={values.style}
-              onChange={update("style")}
-              placeholder="z. B. gefühlvolle Ballade, fröhlicher Pop, Rock …"
-              className={inputClass}
-            />
-          </Field>
+            <Field
+              label="Gewünschter Musikstil / Stimmung"
+              htmlFor="style"
+              hint="Welches Genre und welche Gefühle soll der Song transportieren?"
+            >
+              <input
+                id="style"
+                name="style"
+                value={values.style}
+                onChange={update("style")}
+                placeholder="z. B. gefühlvolle Ballade, fröhlicher Pop, Rock …"
+                className={inputClass}
+              />
+            </Field>
 
-          <Field
-            label="Wichtige Details für die Lyrics"
-            htmlFor="details"
-            hint="Hobbys, Lieblingstiere, wichtige Wegbegleiter, Anekdoten …"
-          >
-            <textarea
-              id="details"
-              name="details"
-              rows={5}
-              required
-              value={values.details}
-              onChange={update("details")}
-              placeholder="Erzähl mir alles, was im Song vorkommen soll – kleine Geschichten, Insider, besondere Momente …"
-              className={`${inputClass} resize-none`}
-            />
-          </Field>
+            <Field
+              label="Wichtige Details für die Lyrics"
+              htmlFor="details"
+              hint="Hobbys, Lieblingstiere, wichtige Wegbegleiter, Anekdoten …"
+            >
+              <textarea
+                id="details"
+                name="details"
+                rows={5}
+                required
+                value={values.details}
+                onChange={update("details")}
+                placeholder="Erzähl mir alles, was im Song vorkommen soll – kleine Geschichten, Insider, besondere Momente …"
+                className={`${inputClass} resize-none`}
+              />
+            </Field>
 
-          <button
-            type="submit"
-            className="mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-b from-gold-soft to-copper px-8 py-3.5 text-base font-semibold text-primary-foreground shadow-[0_0_36px_-8px_var(--gold)] transition-transform hover:scale-[1.02]"
-          >
-            <Send className="h-4 w-4" strokeWidth={2} />
-            Senden
-          </button>
-        </form>
+            {status === "error" && (
+              <p className="text-sm text-red-500">Fehler: {errorMessage}</p>
+            )}
+
+            <button
+              type="submit"
+              disabled={status === "submitting"}
+              className="mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-b from-gold-soft to-copper px-8 py-3.5 text-base font-semibold text-primary-foreground shadow-[0_0_36px_-8px_var(--gold)] transition-transform hover:scale-[1.02] disabled:opacity-50"
+            >
+              {status === "submitting" ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Wird gesendet...
+                </>
+              ) : (
+                <>
+                  <Send className="h-4 w-4" strokeWidth={2} />
+                  Senden
+                </>
+              )}
+            </button>
+          </form>
+        )}
       </div>
     </section>
   )
