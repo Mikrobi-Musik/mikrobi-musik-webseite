@@ -1,4 +1,4 @@
-"import client"; // Falls Next.js App Router genutzt wird (wegen useState)
+"use client";
 import { useState } from "react"
 import { Heart, Sparkles, Gift, X } from "lucide-react"
 
