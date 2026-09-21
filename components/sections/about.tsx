@@ -1,4 +1,6 @@
-import { Heart, Sparkles, Gift } from "lucide-react"
+"import client"; // Falls Next.js App Router genutzt wird (wegen useState)
+import { useState } from "react"
+import { Heart, Sparkles, Gift, X } from "lucide-react"
 
 const VALUES = [
   {
@@ -22,6 +24,9 @@ const VALUES = [
 ]
 
 export function About() {
+  // Speichert das aktuell geöffnete Modal für Mobile (enthält das Value-Objekt oder null)
+  const [activeModal, setActiveModal] = useState<(typeof VALUES)[0] | null>(null)
+
   return (
     <section id="ueber-mich" className="relative mx-auto max-w-6xl scroll-mt-24 px-5 py-24">
       <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
@@ -60,7 +65,7 @@ export function About() {
             beispielsweise an Demenz erkrankt sind.
           </p>
           <p className="mt-4 text-pretty leading-relaxed text-muted-foreground">
-            Als „Song Creator&ldquo; ist es meine Aufgabe, maßgeschneiderte, personalisierte Lieder für diese Menschen
+            Als „Song Creator“ ist es meine Aufgabe, maßgeschneiderte, personalisierte Lieder für diese Menschen
             zu produzieren. Jeder Song ist ein absolutes Unikat und wird exakt auf die jeweilige Person, ihren Namen,
             ihre persönlichen Hobbys, Lieblingstiere oder schöne Lebenserinnerungen zugeschnitten. Das Ziel der
             Stiftung und von mir ist es, diesen Menschen in einer unglaublich schweren Zeit ein Lächeln ins Gesicht zu
@@ -69,11 +74,18 @@ export function About() {
           </p>
         </div>
 
+        {/* Kacheln */}
         <div className="grid gap-4 lg:sticky lg:top-24">
           {VALUES.map((value) => (
             <div
               key={value.title}
-              className="glass group rounded-2xl border border-border p-5 transition-colors hover:border-gold/40"
+              onClick={() => {
+                // Öffnet das Popup nur auf mobilen Geräten (unter lg-Breakpoint)
+                if (window.innerWidth < 1024) {
+                  setActiveModal(value)
+                }
+              }}
+              className="glass group cursor-pointer rounded-2xl border border-border p-5 transition-colors hover:border-gold/40"
             >
               <div className="flex items-start gap-4">
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border bg-gradient-to-b from-gold-soft/20 to-copper/10">
@@ -85,7 +97,8 @@ export function About() {
                 </div>
               </div>
 
-              <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-out group-hover:grid-rows-[1fr]">
+              {/* Desktop Hover: Klappt automatisch auf */}
+              <div className="hidden lg:grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-out group-hover:grid-rows-[1fr]">
                 <div className="overflow-hidden">
                   <p className="mt-4 text-pretty text-sm leading-relaxed text-muted-foreground">{value.text}</p>
                 </div>
@@ -94,6 +107,44 @@ export function About() {
           ))}
         </div>
       </div>
+
+      {/* Mobiles Popup-Modal mit Schließen-Button */}
+      {activeModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm lg:hidden">
+          <div className="relative max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-border bg-background p-6 shadow-2xl">
+            <button
+              onClick={() => setActiveModal(null)}
+              className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-border bg-muted/50 text-foreground transition-colors hover:bg-gold/20 hover:text-gold"
+              aria-label="Schließen"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            <div className="flex items-center gap-3 pr-8">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-gradient-to-b from-gold-soft/20 to-copper/10">
+                <activeModal.icon className="h-5 w-5 text-gold" strokeWidth={1.75} />
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg">{activeModal.title}</h3>
+                <p className="text-xs text-gold/90">{activeModal.subtitle}</p>
+              </div>
+            </div>
+
+            <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
+              {activeModal.text}
+            </p>
+
+            <div className="mt-8 flex justify-end">
+              <button
+                onClick={() => setActiveModal(null)}
+                className="rounded-xl border border-gold/40 bg-gold/10 px-5 py-2 text-sm font-medium text-gold transition-colors hover:bg-gold/20"
+              >
+                Schließen
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
