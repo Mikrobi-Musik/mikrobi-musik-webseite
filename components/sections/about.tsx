@@ -31,7 +31,7 @@ export function About() {
             Hi, ich bin <span className="text-gold-gradient">Mirko</span>
           </h2>
           <p className="mt-6 text-pretty leading-relaxed text-muted-foreground">
-            Mein Lebensmittelpunkt liegt im beschaulichen Dettingen an der Erms, wo ich mit meiner Familie lebe.
+            Mein Lebensmittelpunkt liegt in einem schönen Ort am Fuße der Schwäbischen Alb, wo ich mit meiner Familie lebe.
           </p>
           <p className="mt-4 text-pretty leading-relaxed text-muted-foreground">
             Früher habe ich oft gedacht: Wie schön wäre es, wenn einer meiner Lieblingskünstler ein Lied über meine
