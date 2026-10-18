@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react"
-import { Heart, Sparkles, Gift, X } from "lucide-react"
+import { Heart, Sparkles, Gift, X, ChevronRight } from "lucide-react"
 
 const VALUES = [
   {
@@ -24,7 +24,6 @@ const VALUES = [
 ]
 
 export function About() {
-  // Speichert das aktuell geöffnete Modal für Mobile (enthält das Value-Objekt oder null)
   const [activeModal, setActiveModal] = useState<(typeof VALUES)[0] | null>(null)
 
   return (
@@ -79,13 +78,9 @@ export function About() {
           {VALUES.map((value) => (
             <div
               key={value.title}
-              onClick={() => {
-                // Öffnet das Popup nur auf mobilen Geräten (unter lg-Breakpoint)
-                if (window.innerWidth < 1024) {
-                  setActiveModal(value)
-                }
-              }}
-              className="glass group cursor-pointer rounded-2xl border border-border p-5 transition-colors hover:border-gold/40"
+              // HIER: Keine Abfrage mehr, einfach direkt öffnen!
+              onClick={() => setActiveModal(value)}
+              className="glass group cursor-pointer rounded-2xl border border-border p-5 transition-colors lg:hover:border-gold/40"
             >
               <div className="flex items-start gap-4">
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border bg-gradient-to-b from-gold-soft/20 to-copper/10">
@@ -94,6 +89,14 @@ export function About() {
                 <div>
                   <h3 className="font-semibold">{value.title}</h3>
                   <p className="mt-1 text-sm leading-relaxed text-gold/90">{value.subtitle}</p>
+                  
+                  {/* Optischer Button nur für Handys */}
+                  <div className="mt-3 lg:hidden">
+                    <span className="inline-flex items-center rounded-full border border-gold/40 bg-gold/5 px-3 py-1 text-xs font-medium text-gold transition-colors">
+                      Mehr erfahren
+                      <ChevronRight className="ml-1 h-3 w-3" />
+                    </span>
+                  </div>
                 </div>
               </div>
 
@@ -108,7 +111,7 @@ export function About() {
         </div>
       </div>
 
-      {/* Mobiles Popup-Modal mit Schließen-Button */}
+      {/* Mobiles Popup-Modal */}
       {activeModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm lg:hidden">
           <div className="relative max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-border bg-background p-6 shadow-2xl">

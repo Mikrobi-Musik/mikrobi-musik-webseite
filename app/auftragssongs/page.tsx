@@ -5,13 +5,13 @@ export default function AuftragssongsPage() {
   return (
     <main className="min-h-screen pt-12 pb-16">
       
-      {/* --- Zurück-Button --- */}
-      <div className="px-6 max-w-6xl mx-auto mb-8">
+      {/* --- Schwebender Zurück-Button --- */}
+      <div className="fixed top-4 left-4 md:top-8 md:left-8 z-50">
         <Link 
           href="/" 
-          className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-gold transition-colors"
+          className="glass inline-flex items-center px-4 py-2.5 rounded-full text-sm font-medium text-muted-foreground hover:text-gold border border-border/50 hover:border-gold/50 shadow-[0_0_15px_rgba(0,0,0,0.3)] transition-all hover:scale-105"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
             <path d="M19 12H5M12 19l-7-7 7-7"/>
           </svg>
           Zurück zur Startseite
@@ -52,7 +52,7 @@ export default function AuftragssongsPage() {
                 Emotionale Hochzeitsballade
               </h3>
               <div className="rounded-xl overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.3)] border border-border/50">
-                <iframe width="100%" height="166" scrolling="no" frameBorder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%3Atracks%3A2412394656%3Fsecret_token%3Ds-OrTgiIvFqGm&color=%23d1a43d&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true" />
+                <iframe width="100%" height="166" scrolling="no" frameBorder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%3Atracks%3A2412394656%3Fsecret_token%3Ds-OrTgiIvFqGm&color=%23d1a43d&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false" />
               </div>
             </div>
             <div className="w-full flex flex-col bg-background/30 rounded-xl p-5 border border-border/30">
@@ -96,7 +96,7 @@ export default function AuftragssongsPage() {
                 Lustiger Geburtstagssong
               </h3>
               <div className="rounded-xl overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.3)] border border-border/50">
-                <iframe width="100%" height="166" scrolling="no" frameBorder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%3Atracks%3A2412388872%3Fsecret_token%3Ds-mYtJ1WQmonu&color=%23d1a43d&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true" />
+                <iframe width="100%" height="166" scrolling="no" frameBorder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%3Atracks%3A2412388872%3Fsecret_token%3Ds-mYtJ1WQmonu&color=%23d1a43d&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false" />
               </div>
             </div>
             <div className="w-full flex flex-col bg-background/30 rounded-xl p-5 border border-border/30">
@@ -140,7 +140,7 @@ export default function AuftragssongsPage() {
                 Emotionale Singer-Songwriter Liebesgeschichte
               </h3>
               <div className="rounded-xl overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.3)] border border-border/50">
-                <iframe width="100%" height="166" scrolling="no" frameBorder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%3Atracks%3A2412394659%3Fsecret_token%3Ds-aPf0VF1RDgW&color=%23d1a43d&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true" />
+                <iframe width="100%" height="166" scrolling="no" frameBorder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%3Atracks%3A2412394659%3Fsecret_token%3Ds-aPf0VF1RDgW&color=%23d1a43d&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false" />
               </div>
             </div>
             <div className="w-full flex flex-col bg-background/30 rounded-xl p-5 border border-border/30">
@@ -184,7 +184,7 @@ export default function AuftragssongsPage() {
                 Energiegeladener Trennungs-Rap
               </h3>
               <div className="rounded-xl overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.3)] border border-border/50">
-                <iframe width="100%" height="166" scrolling="no" frameBorder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%3Atracks%3A2412394641%3Fsecret_token%3Ds-swRkROBrS0m&color=%23d1a43d&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true" />
+                <iframe width="100%" height="166" scrolling="no" frameBorder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%3Atracks%3A2412394641%3Fsecret_token%3Ds-swRkROBrS0m&color=%23d1a43d&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false" />
               </div>
             </div>
             <div className="w-full flex flex-col bg-background/30 rounded-xl p-5 border border-border/30">
