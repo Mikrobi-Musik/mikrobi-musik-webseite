@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { Send, Loader2, CheckCircle2, ShieldCheck } from "lucide-react"
+import Link from "next/link"
+import { Send, Loader2, CheckCircle2, ShieldCheck, ArrowUpRight } from "lucide-react"
 
 export function Contact() {
   const [values, setValues] = useState({
@@ -148,6 +149,24 @@ export function Contact() {
                   <span className="text-sm font-medium">Ehrenamtliches Herzensprojekt</span>
                 </label>
               </div>
+
+              {/* Dynamische Schaltfläche bei Auswahl von Auftragssong */}
+              {values.requestType === "auftragssong" && (
+                <div className="mt-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3 rounded-xl border border-gold/40 bg-gold/10 transition-all">
+                  <div className="text-xs text-foreground/90 leading-tight">
+                    <span className="font-semibold text-gold block sm:inline">Transparenter Festpreis: 49 €</span>
+                    <span className="sm:ml-1 text-muted-foreground">Erfahre alles über Ablauf, Anzahlung & deine Zufriedenheit.</span>
+                  </div>
+                  <Link
+                    href="/preise"
+                    target="_blank"
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-gold hover:underline whitespace-nowrap"
+                  >
+                    Ablauf & Preise ansehen
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              )}
             </div>
 
             <Field
