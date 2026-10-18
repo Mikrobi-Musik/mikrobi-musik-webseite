@@ -81,7 +81,7 @@ export default function PreisePage() {
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="h-4 w-4 text-gold shrink-0 mt-0.5" />
-                  <span><strong>Inklusive 3 Korrekturschleifen</strong> nach der ersten Hörprobe</span>
+                  <span><strong>Inklusive 3 Korrekturschleifen</strong> nach der ersten Hörprobe (enthält Audio-Wasserzeichen)</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="h-4 w-4 text-gold shrink-0 mt-0.5" />

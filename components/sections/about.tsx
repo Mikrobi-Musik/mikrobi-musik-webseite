@@ -46,7 +46,7 @@ export function About() {
           <p className="mt-4 text-pretty leading-relaxed text-muted-foreground">
             Das änderte sich schlagartig, als ich Suno AI für mich entdeckte. Diese Technologie war für mich eine
             absolute Offenbarung, denn plötzlich hatte ich das Werkzeug in der Hand, um genau diesen Wunsch endlich
-            in die Tat umzusetzen. Dabei besteht die kreative Arbeit keineswegs aus einem einfachen Knopfdruck: Ich
+            in die Tat umzusetzen. Dabei besteht die kreative Arbeit keineswegs aus einem einfachen Knopfdruck. Ich
             investiere sehr viel Zeit und Detailarbeit in professionelles Prompting, das Schreiben passender Lyrics
             und die Konzeption der Songs zusammen mit meinem KI-Assistenten. Es ist ein faszinierender Prozess, Ideen
             und Emotionen so präzise in Text und Regieanweisungen zu übersetzen, dass die KI daraus ein tiefgründiges,
