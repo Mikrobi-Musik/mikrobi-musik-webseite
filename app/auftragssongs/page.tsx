@@ -64,7 +64,7 @@ export default function AuftragssongsPage() {
               <ul className="grid md:grid-cols-2 gap-x-12 gap-y-6 text-base text-muted-foreground">
                 <li className="flex flex-col">
                   <strong className="text-foreground mb-1 text-lg font-medium">Anlass & Personen</strong> 
-                  <span className="leading-relaxed">Hochzeit von Maik & Sähra (nach 10 Jahren Beziehung). Das erste gemeinsame Kind ist unterwegs.</span>
+                  <span className="leading-relaxed">Hochzeit von Maik & Sarah (nach 10 Jahren Beziehung). Das erste gemeinsame Kind ist unterwegs.</span>
                 </li>
                 <li className="flex flex-col">
                   <strong className="text-foreground mb-1 text-lg font-medium">Dynamik</strong> 
