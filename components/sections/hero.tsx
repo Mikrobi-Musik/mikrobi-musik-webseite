@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { HeroAudioPlayer } from "@/components/sections/hero-audio-player"
 
 const HERO_ARTWORK = "/images/mikrobi-logo.png"
 
@@ -80,6 +81,9 @@ export function Hero() {
             </p>
           </div>
         </div>
+
+        {/* --- Titelsong Player --- */}
+        <HeroAudioPlayer />
 
         {/* --- Das Robin-Hood-Prinzip --- */}
         <div className="mb-12 max-w-2xl mx-auto text-center">

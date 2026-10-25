@@ -150,9 +150,9 @@ export function Contact() {
                 </label>
               </div>
 
-              {/* Dynamische Schaltfläche bei Auswahl von Auftragssong */}
+              {/* Dynamische Kachel bei Auswahl von Auftragssong */}
               {values.requestType === "auftragssong" && (
-                <div className="mt-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3 rounded-xl border border-gold/40 bg-gold/10 transition-all">
+                <div className="mt-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3.5 rounded-xl border border-gold/40 bg-gold/10 transition-all">
                   <div className="text-xs text-foreground/90 leading-tight">
                     <span className="font-semibold text-gold block sm:inline">Transparenter Festpreis: 49 €</span>
                     <span className="sm:ml-1 text-muted-foreground">Erfahre alles über Ablauf, Anzahlung & deine Zufriedenheit.</span>
@@ -163,6 +163,28 @@ export function Contact() {
                     className="inline-flex items-center gap-1 text-xs font-semibold text-gold hover:underline whitespace-nowrap"
                   >
                     Ablauf & Preise ansehen
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              )}
+
+              {/* Dynamische Kachel bei Auswahl von Herzensprojekt */}
+              {values.requestType === "herzensprojekt" && (
+                <div className="mt-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3.5 rounded-xl border border-amber-500/40 bg-amber-500/10 transition-all">
+                  <div className="text-xs text-foreground/90 leading-relaxed">
+                    <span className="font-semibold text-amber-400 block mb-0.5">
+                      Herzenssache mit Verantwortung:
+                    </span>
+                    <span className="text-muted-foreground">
+                      Kostenlose Songs sind ausschließlich für Menschen in schweren Lebenskrisen, meist mit Klinikaufenthalt reserviert (schwer kranke Kinder, Jugendliche, Erwachsene, Hospizbegleitung, Demenzstationen,Alten- und Pflegeeinrichtungen). Für Geburtstage, Hochzeiten oder private Feiern wähle bitte den regulären Auftragssong (49 €) – denn nur so können wir diese ehrenamtlichen Projekte dauerhaft ermöglichen.
+                    </span>
+                  </div>
+                  <Link
+                    href="/herzensprojekte"
+                    target="_blank"
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-amber-400 hover:underline whitespace-nowrap mt-1 sm:mt-0"
+                  >
+                    Projekte ansehen
                     <ArrowUpRight className="h-3.5 w-3.5" />
                   </Link>
                 </div>

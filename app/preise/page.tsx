@@ -120,18 +120,18 @@ export default function PreisePage() {
             </div>
 
             {/* Schritt 2 */}
-            <div className="glass rounded-2xl border border-border p-6 flex flex-col justify-between">
-              <div>
-                <span className="text-xs font-bold text-gold/60 uppercase tracking-widest">Schritt 02</span>
-                <h3 className="text-lg font-semibold text-foreground mt-2 mb-3">Projektstart & Anzahlung</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  Wenn alles für dich passt, erhältst du eine kurze Rechnung. Mit einer fairen 50 % Anzahlung (24,50 €) per Banküberweisung beginnt die Arbeit.
-                </p>
-              </div>
-              <div className="mt-6 pt-4 border-t border-border/40 text-[11px] text-muted-foreground flex items-center gap-1">
-                <Clock className="h-3 w-3 text-gold" /> Bearbeitungszeit ca. 3–5 Tage
-              </div>
-            </div>
+<div className="glass rounded-2xl border border-border p-6 flex flex-col justify-between">
+  <div>
+    <span className="text-xs font-bold text-gold/60 uppercase tracking-widest">Schritt 02</span>
+    <h3 className="text-lg font-semibold text-foreground mt-2 mb-3">Projektstart & Anzahlung</h3>
+    <p className="text-xs text-muted-foreground leading-relaxed">
+      Wenn alles für dich passt, erhältst du deine Anzahlungsrechnung über 50 % (24,50 €). Bezahle ganz flexibel per PayPal Express oder bequem via GiroCode per Banküberweisung – danach startet sofort die Produktion.
+    </p>
+  </div>
+  <div className="mt-6 pt-4 border-t border-border/40 text-[11px] text-muted-foreground flex items-center gap-1">
+    <Clock className="h-3 w-3 text-gold" /> Bearbeitungszeit ca. 3–5 Tage
+  </div>
+</div>
 
             {/* Schritt 3 */}
             <div className="glass rounded-2xl border border-border p-6 flex flex-col justify-between">
@@ -164,7 +164,7 @@ export default function PreisePage() {
           </div>
         </section>
 
-        {/* --- Warum Überweisung? (Infobox) --- */}
+        {/* --- Warum persönliche Zahlung auf Rechnung? (Infobox) --- */}
         <section className="glass rounded-2xl border border-border/60 p-6 md:p-8 bg-background/20">
           <div className="flex flex-col md:flex-row gap-6 items-start">
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-gold/30 bg-gold/10 text-gold">
@@ -172,15 +172,13 @@ export default function PreisePage() {
             </div>
             <div>
               <h3 className="text-lg font-semibold text-foreground mb-2">
-                Warum persönliche Banküberweisung statt anonymer Online-Checkout?
+                Persönlich & transparent: Zahlung auf Rechnung
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                Ein Auftragssong ist ein sehr persönliches Projekt, das im Dialog miteinander entsteht. 
-                Durch die klassische Überweisung auf Rechnung sparen wir uns teure Transaktionsgebühren externer Zahlungsanbieter. 
+                Ein Auftragssong ist ein individuelles Herzensprojekt, das im direkten Dialog miteinander entsteht – ganz ohne unpersönliche Abo-Fallen oder anonyme Massen-Checkouts. Du zahlst fair in zwei Schritten (50/50) und wählst einfach deinen bevorzugten Weg: sekundenschnell per <strong>PayPal Express</strong> oder per <strong>Banküberweisung via GiroCode</strong>.
               </p>
               <p className="text-sm text-gold/90 leading-relaxed font-medium">
-                So fließt jeder einzelne Cent direkt in erstklassige Produktionsqualität und in die Unterstützung 
-                meiner ehrenamtlichen Herzensprojekte nach dem Robin-Hood-Prinzip.
+                So behältst du jederzeit die volle Kontrolle und jeder Cent fließt direkt in hochwertige Produktion sowie in die Finanzierung der ehrenamtlichen Herzensprojekte für Kinderkliniken und Hospize.
               </p>
             </div>
           </div>

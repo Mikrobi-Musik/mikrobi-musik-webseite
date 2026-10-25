@@ -6,7 +6,7 @@ export function ImpressumContent() {
         <br />
         Mikrobi-Musik
         <br />
-        Joh.- Seb.- Bach-Straße 49
+        Joh.-Seb.-Bach-Straße 49
         <br />
         72581 Dettingen an der Erms
       </p>
@@ -21,17 +21,20 @@ export function ImpressumContent() {
       </div>
 
       <div>
-        <h3 className="mb-1 text-base font-semibold text-foreground">Umsatzsteuer-ID</h3>
+        <h3 className="mb-1 text-base font-semibold text-foreground">Umsatzsteuer-ID & Kleinunternehmerstatus</h3>
         <p>
           Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:
           <br />
           DE461997701
         </p>
+        <p className="mt-1">
+          Gemäß § 19 UStG wird als Kleinunternehmer keine Umsatzsteuer berechnet und nicht gesondert ausgewiesen.
+        </p>
       </div>
 
       <div>
         <h3 className="mb-1 text-base font-semibold text-foreground">
-          Verbraucherstreitbeilegung/Universalschlichtungsstelle
+          Verbraucherstreitbeilegung / Universalschlichtungsstelle
         </h3>
         <p>
           Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle
@@ -63,8 +66,7 @@ export function DatenschutzContent() {
         <p>
           Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten
           passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich
-          identifiziert werden können. Ausführliche Informationen zum Thema Datenschutz entnehmen Sie unserer unter
-          diesem Text aufgeführten Datenschutzerklärung.
+          identifiziert werden können.
         </p>
       </div>
 
@@ -74,91 +76,58 @@ export function DatenschutzContent() {
           Wer ist verantwortlich für die Datenerfassung auf dieser Website?
         </p>
         <p>
-          Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie
-          dem Abschnitt „Hinweis zur verantwortlichen Stelle“ in dieser Datenschutzerklärung entnehmen.
+          Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber:
+          <br />
+          Mirko Neumann, Johann-Sebastian-Bach-Str. 49, 72581 Dettingen an der Erms.
+          <br />
+          Telefon: 015679521864, E-Mail: neumannmirko77@gmail.com.
         </p>
+
         <p className="mb-2 mt-3 font-medium text-foreground/80">Wie erfassen wir Ihre Daten?</p>
         <p>
-          Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z. B. um Daten
-          handeln, die Sie in ein Kontaktformular eingeben.
-        </p>
-        <p className="mt-2">
+          Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen (z. B. Daten, die Sie in das Song-Profil bzw. Kontaktformular eingeben).
           Andere Daten werden automatisch oder nach Ihrer Einwilligung beim Besuch der Website durch unsere IT-Systeme
-          erfasst. Das sind vor allem technische Daten (z. B. Internetbrowser, Betriebssystem oder Uhrzeit des
-          Seitenaufrufs). Die Erfassung dieser Daten erfolgt automatisch, sobald Sie diese Website betreten.
+          erfasst (vor allem technische Daten wie Browser, Betriebssystem oder Uhrzeit des Seitenaufrufs).
         </p>
+
         <p className="mb-2 mt-3 font-medium text-foreground/80">Wofür nutzen wir Ihre Daten?</p>
         <p>
-          Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gewährleisten. Andere Daten
-          können zur Analyse Ihres Nutzerverhaltens verwendet werden. Sofern über die Website Verträge geschlossen oder
-          angebahnt werden können, werden die übermittelten Daten auch für Vertragsangebote, Bestellungen oder sonstige
-          Auftragsanfragen verarbeitet.
-        </p>
-        <p className="mb-2 mt-3 font-medium text-foreground/80">Welche Rechte haben Sie bezüglich Ihrer Daten?</p>
-        <p>
-          Sie haben jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten
-          personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung oder Löschung dieser Daten
-          zu verlangen. Wenn Sie eine Einwilligung zur Datenverarbeitung erteilt haben, können Sie diese Einwilligung
-          jederzeit für die Zukunft widerrufen. Außerdem haben Sie das Recht, unter bestimmten Umständen die
-          Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen. Des Weiteren steht Ihnen ein
-          Beschwerderecht bei der zuständigen Aufsichtsbehörde zu.
-        </p>
-        <p className="mt-2">
-          Hierzu sowie zu weiteren Fragen zum Thema Datenschutz können Sie sich jederzeit an uns wenden.
+          Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gewährleisten. Die übermittelten Angaben aus dem Kontaktformular dienen der Angebotserstellung, Vertragsanbahnung und individuellen Komposition Ihres Auftragssongs oder Herzensprojekts.
         </p>
       </div>
 
       <div>
-        <h3 className="mb-2 text-lg font-semibold text-foreground">2. Hosting</h3>
-        <p>Wir hosten die Inhalte unserer Website bei folgendem Anbieter:</p>
-        <h4 className="mb-1 mt-3 font-semibold text-foreground/90">Externes Hosting</h4>
+        <h3 className="mb-2 text-lg font-semibold text-foreground">2. Hosting & Content Delivery Network (CDN)</h3>
+        <h4 className="mb-1 font-semibold text-foreground/90">Cloudflare Pages</h4>
         <p>
-          Diese Website wird extern gehostet. Die personenbezogenen Daten, die auf dieser Website erfasst werden, werden
-          auf den Servern des Hosters / der Hoster gespeichert. Hierbei kann es sich v. a. um IP-Adressen,
-          Kontaktanfragen, Meta- und Kommunikationsdaten, Vertragsdaten, Kontaktdaten, Namen, Websitezugriffe und
-          sonstige Daten, die über eine Website generiert werden, handeln.
-        </p>
-        <p className="mt-2">Wir setzen folgende(n) Hoster ein:</p>
-        <p className="mt-2">
-          Cloudflare, Inc.
-          <br />
-          101 Townsend St
-          <br />
-          San Francisco, CA 94107
-          <br />
-          USA
-        </p>
-        <h4 className="mb-1 mt-3 font-semibold text-foreground/90">Auftragsverarbeitung</h4>
-        <p>
-          Wir haben einen Vertrag über Auftragsverarbeitung (AVV) zur Nutzung des oben genannten Dienstes geschlossen.
-          Hierbei handelt es sich um einen datenschutzrechtlich vorgeschriebenen Vertrag, der gewährleistet, dass dieser
-          die personenbezogenen Daten unserer Websitebesucher nur nach unseren Weisungen und unter Einhaltung der DSGVO
-          verarbeitet.
+          Wir hosten unsere Website bei Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA.
+          Cloudflare bietet ein weltweites Content Delivery Network mit DNS-Diensten. Dabei wird der Datenverkehr zwischen Ihrem Browser und unserer Website über die Server von Cloudflare geleitet, um Ladezeiten und Sicherheit zu optimieren. Wir haben mit Cloudflare einen Vertrag über Auftragsverarbeitung (AVV) gemäß Art. 28 DSGVO geschlossen.
         </p>
       </div>
 
       <div>
-        <h3 className="mb-2 text-lg font-semibold text-foreground">3. Allgemeine Hinweise und Pflichtinformationen</h3>
-        <h4 className="mb-1 font-semibold text-foreground/90">Hinweis zur verantwortlichen Stelle</h4>
-        <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:</p>
-        <p className="mt-2">
-          Mirko Neumann
-          <br />
-          Johann-Sebastian-Bach-Str. 49
-          <br />
-          72581 Dettingen an der Erms
-          <br />
-          Deutschland
+        <h3 className="mb-2 text-lg font-semibold text-foreground">3. Formulare & Drittanbieter-Dienste</h3>
+        
+        <h4 className="mb-1 font-semibold text-foreground/90">Kontaktformular / Song-Profil (Web3Forms)</h4>
+        <p>
+          Wenn Sie uns Anfragen über das Song-Profil zukommen lassen, werden Ihre Angaben inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns verarbeitet. Die technische Weiterleitung erfolgt über den Dienst Web3Forms. Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO zur Durchführung vorvertraglicher Maßnahmen.
         </p>
-        <p className="mt-2">
-          Telefon: 015679521864
-          <br />
-          E-Mail: neumannmirko77@gmail.com
+
+        <h4 className="mb-1 mt-3 font-semibold text-foreground/90">Eingebettete Medien (Spotify & SoundCloud)</h4>
+        <p>
+          Auf unseren Unterseiten sind Player der Musikdienste Spotify (Spotify AB, Regeringsgatan 19, 111 53 Stockholm, Schweden) und SoundCloud (SoundCloud Global Limited & Co. KG, Rheinsberger Str. 76/77, 10115 Berlin) eingebunden. Beim Abspielen dieser Inhalte wird eine direkte Verbindung zwischen Ihrem Browser und den Servern der jeweiligen Plattformen hergestellt, wodurch diese Informationen über Ihren Besuch und Ihre IP-Adresse erhalten.
         </p>
-        <p className="mt-3 italic">
-          (Hinweis: Die weiteren umfangreichen Standardpassagen zu Speicherdauer, Widerspruchsrecht, Beschwerderecht,
-          SSL-Verschlüsselung, Cookies, Server-Log-Dateien, Kontaktformular, YouTube, Google Fonts und Spotify aus der
-          PDF-Datei folgen hier im finalen Dokument nach dem exakt gleichen Muster.)
+
+        <h4 className="mb-1 mt-3 font-semibold text-foreground/90">Zahlungsabwicklung (PayPal & Banküberweisung)</h4>
+        <p>
+          Im Rahmen der Auftragsabwicklung bieten wir Zahlungen per Banküberweisung (unter Nutzung von GiroCodes) sowie per PayPal an. Wenn Sie per PayPal bezahlen, werden Ihre Zahlungsdaten an PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg weitergeleitet. Die Weitergabe erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO zur Vertragserfüllung.
+        </p>
+      </div>
+
+      <div>
+        <h3 className="mb-2 text-lg font-semibold text-foreground">4. Ihre Rechte</h3>
+        <p>
+          Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung sowie ein Recht auf Berichtigung oder Löschung dieser Daten. Hierzu sowie zu weiteren Fragen zum Thema Datenschutz können Sie sich jederzeit an uns wenden.
         </p>
       </div>
 
