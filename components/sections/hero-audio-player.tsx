@@ -35,7 +35,7 @@ export function HeroAudioPlayer() {
       <div className="glass rounded-2xl border border-gold/30 bg-background/30 p-5 md:p-6 backdrop-blur-md shadow-lg">
         <audio
           ref={audioRef}
-          src="/audio/ein-lied-des-laechelns.mp3"
+          src="/Audio/ein-lied-des-laechelns.mp3"
           onTimeUpdate={handleTimeUpdate}
           onEnded={handleEnded}
         />
