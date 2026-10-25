@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Send, Loader2, CheckCircle2, ShieldCheck, ArrowUpRight } from "lucide-react"
+import { Send, Loader2, CheckCircle2, ShieldCheck, ArrowUpRight, AlertCircle } from "lucide-react"
 
 export function Contact() {
   const [values, setValues] = useState({
@@ -16,26 +16,47 @@ export function Contact() {
     details: "",
   })
 
+  // Speichert, ob der Absendeversuch bereits stattgefunden hat (Validation Trigger)
+  const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false)
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle")
   const [errorMessage, setErrorMessage] = useState("")
 
   function update(key: keyof typeof values) {
-    return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       setValues((prev) => ({ ...prev, [key]: e.target.value }))
+    }
+  }
+
+  // Prüffunktion für die Pflichtfelder
+  const isFieldInvalid = (key: keyof typeof values) => {
+    if (!hasAttemptedSubmit) return false
+    return !values[key] || values[key].trim() === ""
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    setHasAttemptedSubmit(true)
 
-    if (!values.requestType) {
-      setStatus("error")
-      setErrorMessage("Bitte wähle aus, ob es sich um einen Auftragssong oder ein Herzensprojekt handelt.")
-      return
-    }
+    // Validierung aller Pflichtfelder
+    const missingFields: string[] = []
+    if (!values.requestType) missingFields.push("Bereichsauswahl (Auftragssong vs. Herzensprojekt)")
+    if (!values.senderName.trim()) missingFields.push("Dein Name")
+    if (!values.senderEmail.trim()) missingFields.push("Deine E-Mail-Adresse")
+    if (!values.person.trim()) missingFields.push("Name der Hauptperson")
+    if (!values.occasion.trim()) missingFields.push("Anlass des Songs")
+    if (!values.details.trim()) missingFields.push("Wichtige Details für die Lyrics")
 
-    if (!values.senderEmail) {
+    if (missingFields.length > 0) {
       setStatus("error")
-      setErrorMessage("Bitte gib deine E-Mail-Adresse an, damit ich dir antworten kann.")
+      setErrorMessage(
+        `Bitte fülle alle markierten Pflichtfelder aus (${missingFields.length} Angabe${missingFields.length > 1 ? "n fehlen" : " fehlt"}).`
+      )
+      
+      // Sanft zum Formularbeginn scrollen, damit die Fehler sichtbar sind
+      const formElement = document.getElementById("kontakt-formular")
+      if (formElement) {
+        formElement.scrollIntoView({ behavior: "smooth", block: "start" })
+      }
       return
     }
 
@@ -58,7 +79,7 @@ export function Contact() {
           subject: subjectLine,
           from_name: values.senderName || "Song-Anfrage",
           email: values.senderEmail,
-          replyto: values.senderEmail, // Sorgt für direktes Antworten im Gmail-Posteingang
+          replyto: values.senderEmail,
           message: [
             `Kategorie: ${isAuftrag ? "Maßgeschneiderter Auftragssong (49 €)" : "Ehrenamtliches Herzensprojekt"}`,
             "",
@@ -82,6 +103,7 @@ export function Contact() {
 
       if (result.success) {
         setStatus("success")
+        setHasAttemptedSubmit(false)
         setValues({
           requestType: "",
           senderName: "",
@@ -124,16 +146,36 @@ export function Contact() {
               Dein Song-Profil wurde erfolgreich verschickt. Ich melde mich bald bei dir!
             </p>
             <button
-              onClick={() => setStatus("idle")}
+              onClick={() => {
+                setStatus("idle")
+                setHasAttemptedSubmit(false)
+              }}
               className="mt-6 inline-flex items-center justify-center rounded-full bg-secondary px-6 py-2 text-sm font-medium transition-colors hover:bg-secondary/80"
             >
               Weitere Anfrage senden
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="grid gap-5">
+          <form id="kontakt-formular" onSubmit={handleSubmit} noValidate className="grid gap-5">
+            {/* Globale Fehlerbox ganz oben, falls beim Klick Fehler vorhanden sind */}
+            {hasAttemptedSubmit && status === "error" && (
+              <div className="flex items-start gap-3 p-4 rounded-xl border border-red-500/40 bg-red-500/10 text-xs text-red-400">
+                <AlertCircle className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-semibold text-red-300">Formular noch unvollständig</p>
+                  <p className="mt-0.5">{errorMessage}</p>
+                </div>
+              </div>
+            )}
+
             {/* Auswahlbereich (Pflichtfeld) */}
-            <div className="grid gap-2 p-4 rounded-xl border border-border/60 bg-secondary/20">
+            <div
+              className={`grid gap-2 p-4 rounded-xl border transition-colors bg-secondary/20 ${
+                isFieldInvalid("requestType")
+                  ? "border-red-500/80 bg-red-500/5 ring-1 ring-red-500/40"
+                  : "border-border/60"
+              }`}
+            >
               <label className="text-sm font-medium text-foreground/90">
                 Worum geht es bei deiner Anfrage? <span className="text-gold">*</span>
               </label>
@@ -176,6 +218,12 @@ export function Contact() {
                   <span className="text-sm font-medium">Ehrenamtliches Herzensprojekt</span>
                 </label>
               </div>
+
+              {isFieldInvalid("requestType") && (
+                <p className="text-xs text-red-400 font-medium mt-1">
+                  Bitte wähle aus, ob es sich um einen Auftragssong oder ein Herzensprojekt handelt.
+                </p>
+              )}
 
               {/* Dynamische Kachel bei Auswahl von Auftragssong */}
               {values.requestType === "auftragssong" && (
@@ -220,21 +268,22 @@ export function Contact() {
               )}
             </div>
 
-            {/* Kontaktdaten des Absenders (Pflichtfelder) */}
+            {/* Kontaktdaten des Absenders */}
             <div className="grid sm:grid-cols-2 gap-4">
               <Field
                 label="Dein Name"
                 htmlFor="senderName"
                 hint="Dein Vor- und Nachname"
+                required
+                error={isFieldInvalid("senderName") ? "Bitte gib deinen Namen an." : undefined}
               >
                 <input
                   id="senderName"
                   name="senderName"
-                  required
                   value={values.senderName}
                   onChange={update("senderName")}
                   placeholder="z. B. Max Mustermann"
-                  className={inputClass}
+                  className={getInputClass(isFieldInvalid("senderName"))}
                 />
               </Field>
 
@@ -242,16 +291,17 @@ export function Contact() {
                 label="Deine E-Mail-Adresse"
                 htmlFor="senderEmail"
                 hint="Für Rückfragen & die Song-Demo"
+                required
+                error={isFieldInvalid("senderEmail") ? "Bitte gib eine gültige E-Mail-Adresse an." : undefined}
               >
                 <input
                   id="senderEmail"
                   name="senderEmail"
                   type="email"
-                  required
                   value={values.senderEmail}
                   onChange={update("senderEmail")}
                   placeholder="name@beispiel.de"
-                  className={inputClass}
+                  className={getInputClass(isFieldInvalid("senderEmail"))}
                 />
               </Field>
             </div>
@@ -261,15 +311,16 @@ export function Contact() {
               label="Name der Hauptperson"
               htmlFor="person"
               hint="Für wen ist der Song? Vor- und ggf. Spitzname."
+              required
+              error={isFieldInvalid("person") ? "Bitte nenne den Namen der besungenen Person." : undefined}
             >
               <input
                 id="person"
                 name="person"
-                required
                 value={values.person}
                 onChange={update("person")}
                 placeholder="z. B. Anna, Opa Willi …"
-                className={inputClass}
+                className={getInputClass(isFieldInvalid("person"))}
               />
             </Field>
 
@@ -284,7 +335,7 @@ export function Contact() {
                 value={values.pronunciation}
                 onChange={update("pronunciation")}
                 placeholder="z. B. 'Maike' wie 'My-ke'"
-                className={inputClass}
+                className={getInputClass(false)}
               />
             </Field>
 
@@ -292,15 +343,16 @@ export function Contact() {
               label="Anlass des Songs"
               htmlFor="occasion"
               hint="Wofür soll der Song sein?"
+              required
+              error={isFieldInvalid("occasion") ? "Bitte gib den Anlass für den Song an." : undefined}
             >
               <input
                 id="occasion"
                 name="occasion"
-                required
                 value={values.occasion}
                 onChange={update("occasion")}
                 placeholder="z. B. Geburtstag, Hochzeit, Mutmacher …"
-                className={inputClass}
+                className={getInputClass(isFieldInvalid("occasion"))}
               />
             </Field>
 
@@ -315,7 +367,7 @@ export function Contact() {
                 value={values.style}
                 onChange={update("style")}
                 placeholder="z. B. gefühlvolle Ballade, fröhlicher Pop, Rock …"
-                className={inputClass}
+                className={getInputClass(false)}
               />
             </Field>
 
@@ -323,22 +375,19 @@ export function Contact() {
               label="Wichtige Details für die Lyrics"
               htmlFor="details"
               hint="Hobbys, Lieblingstiere, wichtige Wegbegleiter, Anekdoten …"
+              required
+              error={isFieldInvalid("details") ? "Bitte teile mir einige Details oder Stichpunkte für den Songtext mit." : undefined}
             >
               <textarea
                 id="details"
                 name="details"
                 rows={5}
-                required
                 value={values.details}
                 onChange={update("details")}
                 placeholder="Erzähl mir alles, was im Song vorkommen soll – kleine Geschichten, Insider, besondere Momente …"
-                className={`${inputClass} resize-none`}
+                className={`${getInputClass(isFieldInvalid("details"))} resize-none`}
               />
             </Field>
-
-            {status === "error" && (
-              <p className="text-sm text-red-500 font-medium">Fehler: {errorMessage}</p>
-            )}
 
             {/* Datenschutz-Hinweis */}
             <div className="flex items-start gap-3 p-4 rounded-xl border border-gold/20 bg-gold/5 text-xs text-muted-foreground">
@@ -372,27 +421,38 @@ export function Contact() {
   )
 }
 
-const inputClass =
-  "w-full rounded-xl border border-border bg-secondary/40 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-colors focus:border-gold/60 focus:ring-1 focus:ring-gold/40"
+function getInputClass(hasError: boolean) {
+  const base =
+    "w-full rounded-xl border bg-secondary/40 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-all"
+  if (hasError) {
+    return `${base} border-red-500/80 bg-red-500/5 focus:border-red-500 focus:ring-1 focus:ring-red-500/50`
+  }
+  return `${base} border-border focus:border-gold/60 focus:ring-1 focus:ring-gold/40`
+}
 
 function Field({
   label,
   htmlFor,
   hint,
+  required,
+  error,
   children,
 }: {
   label: string
   htmlFor: string
   hint?: string
+  required?: boolean
+  error?: string
   children: React.ReactNode
 }) {
   return (
-    <div className="grid gap-2">
+    <div className="grid gap-1.5">
       <label htmlFor={htmlFor} className="text-sm font-medium text-foreground/90">
-        {label}
+        {label} {required && <span className="text-gold">*</span>}
       </label>
       {hint ? <p className="-mt-1 text-xs text-muted-foreground">{hint}</p> : null}
       {children}
+      {error && <p className="text-xs text-red-400 font-medium">{error}</p>}
     </div>
   )
 }
