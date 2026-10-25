@@ -7,6 +7,8 @@ import { Send, Loader2, CheckCircle2, ShieldCheck, ArrowUpRight } from "lucide-r
 export function Contact() {
   const [values, setValues] = useState({
     requestType: "", // "auftragssong" oder "herzensprojekt"
+    senderName: "",
+    senderEmail: "",
     person: "",
     pronunciation: "",
     occasion: "",
@@ -31,12 +33,18 @@ export function Contact() {
       return
     }
 
+    if (!values.senderEmail) {
+      setStatus("error")
+      setErrorMessage("Bitte gib deine E-Mail-Adresse an, damit ich dir antworten kann.")
+      return
+    }
+
     setStatus("submitting")
     setErrorMessage("")
 
     const isAuftrag = values.requestType === "auftragssong"
     const typeLabel = isAuftrag ? "[Auftragssong]" : "[Herzensprojekt]"
-    const subjectLine = `${typeLabel} Neue Anfrage von ${values.person || "Unbekannt"}`
+    const subjectLine = `${typeLabel} Neue Anfrage von ${values.senderName || values.person || "Interessent"}`
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -48,16 +56,22 @@ export function Contact() {
         body: JSON.stringify({
           access_key: "347c0a33-7bab-4a68-806a-fc902bc97365",
           subject: subjectLine,
-          from_name: values.person || "Song-Anfrage",
+          from_name: values.senderName || "Song-Anfrage",
+          email: values.senderEmail,
+          replyto: values.senderEmail, // Sorgt für direktes Antworten im Gmail-Posteingang
           message: [
-            `Kategorie: ${isAuftrag ? "Maßgeschneiderter Auftragssong" : "Ehrenamtliches Herzensprojekt"}`,
+            `Kategorie: ${isAuftrag ? "Maßgeschneiderter Auftragssong (49 €)" : "Ehrenamtliches Herzensprojekt"}`,
+            "",
+            "Kontaktdaten des Anfragenden:",
+            `• Name des Absenders: ${values.senderName || "-"}`,
+            `• E-Mail-Adresse: ${values.senderEmail}`,
             "",
             "Details für den persönlichen Song:",
-            "",
-            `• Name der Hauptperson: ${values.person || "-"}`,
+            `• Name der Hauptperson (Besungener): ${values.person || "-"}`,
             `• Aussprache des Namens: ${values.pronunciation || "-"}`,
             `• Anlass des Songs: ${values.occasion || "-"}`,
             `• Musikstil / Stimmung: ${values.style || "-"}`,
+            "",
             "• Wichtige Details für die Lyrics:",
             `${values.details || "-"}`,
           ].join("\n"),
@@ -70,6 +84,8 @@ export function Contact() {
         setStatus("success")
         setValues({
           requestType: "",
+          senderName: "",
+          senderEmail: "",
           person: "",
           pronunciation: "",
           occasion: "",
@@ -116,34 +132,45 @@ export function Contact() {
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="grid gap-5">
-            
             {/* Auswahlbereich (Pflichtfeld) */}
             <div className="grid gap-2 p-4 rounded-xl border border-border/60 bg-secondary/20">
               <label className="text-sm font-medium text-foreground/90">
                 Worum geht es bei deiner Anfrage? <span className="text-gold">*</span>
               </label>
               <p className="text-xs text-muted-foreground">Bitte wähle einen Bereich aus:</p>
-              
+
               <div className="grid sm:grid-cols-2 gap-3 mt-2">
-                <label className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-colors ${values.requestType === "auftragssong" ? "border-gold bg-gold/10 text-foreground" : "border-border bg-secondary/40 text-muted-foreground hover:border-gold/40"}`}>
+                <label
+                  className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-colors ${
+                    values.requestType === "auftragssong"
+                      ? "border-gold bg-gold/10 text-foreground"
+                      : "border-border bg-secondary/40 text-muted-foreground hover:border-gold/40"
+                  }`}
+                >
                   <input
                     type="radio"
                     name="requestType"
                     value="auftragssong"
                     checked={values.requestType === "auftragssong"}
-                    onChange={(e) => setValues(prev => ({ ...prev, requestType: e.target.value }))}
+                    onChange={(e) => setValues((prev) => ({ ...prev, requestType: e.target.value }))}
                     className="accent-gold"
                   />
                   <span className="text-sm font-medium">Maßgeschneiderter Auftragssong</span>
                 </label>
 
-                <label className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-colors ${values.requestType === "herzensprojekt" ? "border-gold bg-gold/10 text-foreground" : "border-border bg-secondary/40 text-muted-foreground hover:border-gold/40"}`}>
+                <label
+                  className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-colors ${
+                    values.requestType === "herzensprojekt"
+                      ? "border-gold bg-gold/10 text-foreground"
+                      : "border-border bg-secondary/40 text-muted-foreground hover:border-gold/40"
+                  }`}
+                >
                   <input
                     type="radio"
                     name="requestType"
                     value="herzensprojekt"
                     checked={values.requestType === "herzensprojekt"}
-                    onChange={(e) => setValues(prev => ({ ...prev, requestType: e.target.value }))}
+                    onChange={(e) => setValues((prev) => ({ ...prev, requestType: e.target.value }))}
                     className="accent-gold"
                   />
                   <span className="text-sm font-medium">Ehrenamtliches Herzensprojekt</span>
@@ -155,7 +182,9 @@ export function Contact() {
                 <div className="mt-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3.5 rounded-xl border border-gold/40 bg-gold/10 transition-all">
                   <div className="text-xs text-foreground/90 leading-tight">
                     <span className="font-semibold text-gold block sm:inline">Transparenter Festpreis: 49 €</span>
-                    <span className="sm:ml-1 text-muted-foreground">Erfahre alles über Ablauf, Anzahlung & deine Zufriedenheit.</span>
+                    <span className="sm:ml-1 text-muted-foreground">
+                      Erfahre alles über Ablauf, Anzahlung & deine Zufriedenheit.
+                    </span>
                   </div>
                   <Link
                     href="/preise"
@@ -176,7 +205,7 @@ export function Contact() {
                       Herzenssache mit Verantwortung:
                     </span>
                     <span className="text-muted-foreground">
-                      Kostenlose Songs sind ausschließlich für Menschen in schweren Lebenskrisen, meist mit Klinikaufenthalt reserviert (schwer kranke Kinder, Jugendliche, Erwachsene, Hospizbegleitung, Demenzstationen,Alten- und Pflegeeinrichtungen). Für Geburtstage, Hochzeiten oder private Feiern wähle bitte den regulären Auftragssong (49 €) – denn nur so können wir diese ehrenamtlichen Projekte dauerhaft ermöglichen.
+                      Kostenlose Songs sind ausschließlich für Menschen in schweren Lebenskrisen, meist mit Klinikaufenthalt reserviert (schwer kranke Kinder, Jugendliche, Erwachsene, Hospizbegleitung, Demenzstationen, Alten- und Pflegeeinrichtungen). Für Geburtstage, Hochzeiten oder private Feiern wähle bitte den regulären Auftragssong (49 €) – denn nur so können wir diese ehrenamtlichen Projekte dauerhaft ermöglichen.
                     </span>
                   </div>
                   <Link
@@ -191,6 +220,43 @@ export function Contact() {
               )}
             </div>
 
+            {/* Kontaktdaten des Absenders (Pflichtfelder) */}
+            <div className="grid sm:grid-cols-2 gap-4">
+              <Field
+                label="Dein Name"
+                htmlFor="senderName"
+                hint="Dein Vor- und Nachname"
+              >
+                <input
+                  id="senderName"
+                  name="senderName"
+                  required
+                  value={values.senderName}
+                  onChange={update("senderName")}
+                  placeholder="z. B. Max Mustermann"
+                  className={inputClass}
+                />
+              </Field>
+
+              <Field
+                label="Deine E-Mail-Adresse"
+                htmlFor="senderEmail"
+                hint="Für Rückfragen & die Song-Demo"
+              >
+                <input
+                  id="senderEmail"
+                  name="senderEmail"
+                  type="email"
+                  required
+                  value={values.senderEmail}
+                  onChange={update("senderEmail")}
+                  placeholder="name@beispiel.de"
+                  className={inputClass}
+                />
+              </Field>
+            </div>
+
+            {/* Song-Details */}
             <Field
               label="Name der Hauptperson"
               htmlFor="person"
