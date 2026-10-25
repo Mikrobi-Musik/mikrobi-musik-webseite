@@ -21,7 +21,7 @@ export function WhyMikrobiTeaser() {
           </h2>
 
           <p className="text-muted-foreground text-sm sm:text-base leading-relaxed max-w-2xl mb-8">
-            Jeder KI-Generator liefert heute Töne in Sekunden – doch gefällt das Ergebnis nicht, ist das Geld unwiderruflich weg. Erfahre, warum maßgeschneidertes Handwerk, persönliche Feinarbeit, <strong>3 Korrekturschleifen</strong> und unser <strong>50/50-Sicherheitsmodell</strong> den entscheidenden Unterschied machen.
+            Jeder KI-Generator liefert heute Töne in Sekunden – doch gefällt das Ergebnis nicht, ist das Geld unwiderruflich weg. Erfahre, warum maßgeschneidertes Handwerk, persönliche Feinarbeit, <strong>3 Korrekturschleifen</strong> und mein <strong>50/50-Sicherheitsmodell</strong> den entscheidenden Unterschied machen.
           </p>
 
           <Link

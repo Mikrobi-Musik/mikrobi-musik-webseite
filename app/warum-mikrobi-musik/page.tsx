@@ -124,7 +124,7 @@ export default function WarumMikrobiMusikPage() {
                 Was passiert, wenn dir das Ergebnis nicht gefällt?
               </h3>
               <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-                Bei reinen KI-Websites musst du den vollen Betrag sofort bezahlen. Klingt der Song metallisch oder gefällt dir die Stimmung nicht, ist dein Geld weg. Bei Mikrobi-Musik hast du <strong>3 volle Korrekturschleifen inklusive</strong>: Wir passen Melodie, Textzeilen oder Betonungen im Dialog an. Und sollte es wider Erwarten absolut nicht harmonieren, sind deine restlichen 50 % geschützt – denn die Schlussrechnung wird <strong>erst nach deiner ausdrücklichen Demo-Freigabe</strong> fällig.
+                Bei reinen KI-Websites musst du den vollen Betrag sofort bezahlen. Klingt der Song metallisch oder gefällt dir die Stimmung nicht, ist dein Geld weg. Bei Mikrobi-Musik hast du <strong>3 volle Korrekturschleifen inklusive</strong>: Gemeinsam passen wir Melodie, Textzeilen oder Betonungen im Dialog an. Und sollte es wider Erwarten absolut nicht harmonieren, sind deine restlichen 50 % geschützt – denn die Schlussrechnung wird <strong>erst nach deiner ausdrücklichen Demo-Freigabe</strong> fällig.
               </p>
             </div>
           </div>
@@ -144,7 +144,7 @@ export default function WarumMikrobiMusikPage() {
               <Sparkles className="h-6 w-6 text-gold mb-3" />
               <h4 className="font-semibold text-foreground text-base mb-2">1. Das Text-Handwerk</h4>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Ich schreibe keine Reime nach Schablone. Ich strukturiere deine Meilensteine so, dass der Song eine echte Geschichte erzählt und die Bridge für Gänsehaut sorgt.
+                Ich schreibe keine Reime nach Schablone. Ich strukturiere deine Meilensteine so, dass der Song eine echte Geschichte erzählt, die für Gänsehaut sorgt.
               </p>
             </div>
 
@@ -160,7 +160,7 @@ export default function WarumMikrobiMusikPage() {
               <HeartHandshake className="h-6 w-6 text-gold mb-3" />
               <h4 className="font-semibold text-foreground text-base mb-2">3. Menschlicher Dialog</h4>
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Du sprichst mit einem echten Menschen. Wenn dir eine Textzeile nicht gefällt oder das Tempo geändert werden soll, passen wir es gemeinsam an.
+                Du sprichst mit einem echten Menschen. Wenn dir eine Textzeile nicht gefällt oder das Tempo geändert werden soll, dann passen wir es gemeinsam an.
               </p>
             </div>
           </div>
