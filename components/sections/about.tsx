@@ -6,14 +6,14 @@ const VALUES = [
   {
     icon: Sparkles,
     title: "Maßgeschneidert",
-    subtitle: "Von deiner Idee zum eigenen Song",
-    text: "Ein besonderer Anlass verdient mehr als nur Musik von der Stange. Jede meiner Kompositionen entsteht individuell und richtet sich exakt nach deinen persönlichen Vorgaben. Der Ablauf ist dabei ganz unkompliziert: Du lieferst mir einfach ein paar grobe Stichpunkte, erzählst mir eine kleine Geschichte oder nennst mir die wichtigsten Details, die im Lied vorkommen sollen. Aus diesen Basisinformationen schreibe ich im ersten Schritt die kompletten Lyrics. Im Anschluss erwecke ich diesen Text musikalisch zum Leben, indem ich Genre, Instrumente und Stimmung exakt auf deine Vision abstimme. Das Ergebnis ist ein maßgeschneiderter Song, den es so auf der Welt kein zweites Mal gibt.",
+    subtitle: "Persönliches Lied schreiben & komponieren lassen",
+    text: "Ein besonderer Anlass verdient mehr als nur Musik von der Stange. Wenn du einen ganz individuellen Song schreiben lassen möchtest, entsteht jede meiner Kompositionen passgenau nach deinen Vorstellungen. Der Ablauf ist unkompliziert: Du nennst mir ein paar Stichpunkte, teilst eine persönliche Anekdote oder erzählst mir von gemeinsamen Erlebnissen. Aus diesen Details schreibe ich die passenden Lyrics und komponiere ein musikalisches Arrangement, das Genre, Instrumente und Stimmung exakt auf deine Vision abstimmt. Das Ergebnis ist ein personalisierter Song, den es so auf der Welt kein zweites Mal gibt.",
   },
   {
     icon: Gift,
     title: "Anlassbezogen",
     subtitle: "Der Soundtrack für deinen Moment",
-    text: "Das Leben steckt voller einzigartiger Ereignisse, die uns für immer im Gedächtnis bleiben. Ob es der Gänsehaut-Moment bei einer Hochzeit ist, die persönliche Überraschung an einem runden Geburtstag oder das Festhalten wertvoller Erinnerungen an besondere Menschen – dein Moment bekommt genau den Soundtrack, den er verdient. Ein maßgeschneidertes Lied ist oft das emotionalste Geschenk, das man machen kann, besonders dann, wenn gesprochene Worte allein nicht ausreichen. Ich helfe dir dabei, die Atmosphäre und Bedeutung deines Anlasses musikalisch einzufangen und in ein Lied zu verwandeln, das diese Erinnerung für die Ewigkeit festhält.",
+    text: "Das Leben steckt voller einzigartiger Ereignisse, die für immer im Gedächtnis bleiben. Ob der emotionale Höhepunkt bei einer Hochzeit, die unvergessliche Überraschung zum runden Geburtstag oder das Festhalten wertvoller Erinnerungen an ein Jubiläum – einen eigenen Song zu verschenken ist oft das berührendste Geschenk, besonders dann, wenn normale Worte nicht ausreichen. Ich fange die Atmosphäre deines Anlasses musikalisch ein und verwandle deine Geschichte in ein Lied, das diesen Moment für immer bewahrt.",
   },
   {
     icon: Heart,
@@ -78,7 +78,6 @@ export function About() {
           {VALUES.map((value) => (
             <div
               key={value.title}
-              // HIER: Keine Abfrage mehr, einfach direkt öffnen!
               onClick={() => setActiveModal(value)}
               className="glass group cursor-pointer rounded-2xl border border-border p-5 transition-colors lg:hover:border-gold/40"
             >

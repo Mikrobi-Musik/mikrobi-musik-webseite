@@ -18,6 +18,19 @@ export const metadata: Metadata = {
   },
   description:
     'Individuelle Wunschlieder für private Anlässe ab 49 € Festpreis. Jedes Lied finanziert ehrenamtliche Musikprojekte für Hospize und schwerkranke Kinder.',
+  keywords: [
+    'Lied schreiben lassen',
+    'Personalisierter Song Geschenk',
+    'Auftragssong Hochzeit',
+    'Individuelles Lied Geburtstag',
+    'Eigenen Song komponieren lassen',
+    'Song verschenken',
+    'Persönliches Lied Geschenkidee',
+    'Musikkomposition Auftrag',
+    'Mikrobi-Musik',
+    'Robin Hood Prinzip Musik',
+    'Mirko Neumann',
+  ],
   icons: {
     icon: [
       {
@@ -75,7 +88,7 @@ const jsonLd = {
   priceRange: '49 €',
   sameAs: [
     'https://www.youtube.com/channel/UCkNhzYx90Fix5KtVyUMd2TQ',
-    'https://open.spotify.com/artist/MIKROBI',
+    'https://open.spotify.com/intl-de/artist/1pOWPwDhzPBUE2hgi7B3AQ',
   ],
 }
 

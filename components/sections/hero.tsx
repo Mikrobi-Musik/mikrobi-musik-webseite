@@ -48,7 +48,7 @@ export function Hero() {
         </div>
 
         <h1 className="text-sm md:text-base uppercase tracking-[0.4em] text-gold mb-4 font-medium">
-          Mikrobi-Musik
+          Mikrobi-Musik &bull; Personalisierte Auftragssongs
         </h1>
         
         <p className="text-4xl md:text-6xl font-light tracking-wide text-foreground leading-tight mb-8">
@@ -56,11 +56,11 @@ export function Hero() {
           <span className="text-gold-gradient font-semibold">Dein Song.</span>
         </p>
 
-        {/* --- Neuer Begrüßungstext --- */}
+        {/* --- Begrüßungstext mit natürlicher SEO-Schärfung --- */}
         <div className="max-w-2xl mb-12">
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
             <strong className="text-foreground font-medium">Dein Soundtrack. Deine Geschichte. Eine Herzenssache.</strong><br />
-            Egal ob du einen ganz persönlichen Song für einen unvergesslichen Moment suchst oder ein ehrenamtliches Herzensprojekt miterleben möchtest: Hier bist du genau richtig. Hör rein, entdecke emotionale Geschichten und lass uns gemeinsam Musik erschaffen, die verbindet und dort ankommt, wo sie am meisten gebraucht wird.
+            Du möchtest ein ganz <strong className="text-foreground font-medium">persönliches Lied schreiben lassen</strong> – als einzigartiges Geschenk zur Hochzeit, zum runden Geburtstag oder für einen unvergesslichen Moment? Oder möchtest du ein ehrenamtliches Herzensprojekt miterleben? Hier bist du genau richtig. Hör rein, entdecke emotionale Geschichten und lass uns gemeinsam Musik erschaffen, die verbindet und berührt.
           </p>
         </div>
 
@@ -91,24 +91,24 @@ export function Hero() {
             Das Robin-Hood-Prinzip
           </h3>
           <p className="text-muted-foreground leading-relaxed text-base">
-            Ich glaube an die Kraft der Musik. Mit jedem gebuchten Projekt für maßgeschneiderte Auftragssongs trägst du direkt dazu bei, die laufenden Kosten für Software, Server und Produktionsmittel für unsere ehrenamtlichen Herzensprojekte zu decken.
+            Ich glaube an die Kraft der Musik. Mit jedem gebuchten Projekt für maßgeschneiderte Auftragssongs trägst du direkt dazu bei, die laufenden Kosten für Software, Server und Produktionsmittel für meine ehrenamtlichen Herzensprojekte zu decken.
           </p>
         </div>
         
         {/* Das Zwei-Säulen Grid */}
         <div className="grid md:grid-cols-2 gap-8 w-full mt-4">
           
-          {/* Säule 1: Auftragssongs */}
+          {/* Säule 1: Auftragssongs (Kaufabsicht & Festpreis ab 49 €) */}
           <div className="flex flex-col items-center p-8 rounded-2xl border border-border glass transition-transform hover:-translate-y-1">
             <h3 className="text-2xl font-semibold mb-4 text-foreground">Maßgeschneiderte Auftragssongs</h3>
             <p className="text-muted-foreground mb-8 text-center flex-grow">
-              Der Soundtrack für eure wichtigsten Momente. Endlich hast du die Möglichkeit, deine ganz persönliche Geschichte in ein unvergessliches Lied zu verwandeln. Hochwertige, individuelle Kompositionen für Hochzeiten, Geburtstage und besondere Meilensteine, die für immer bleiben.
+              Der Soundtrack für eure wichtigsten Meilensteine. Lass deinen ganz persönlichen Song komponieren – perfekt als Geschenk für Hochzeiten, Geburtstage und Jubiläen zum transparenten Festpreis ab 49&nbsp;€. Individuelle Kompositionen, die für immer bleiben.
             </p>
             <Link 
               href="/auftragssongs" 
               className="mt-auto px-8 py-3 bg-gradient-to-b from-gold-soft via-gold to-copper text-primary-foreground rounded-full font-medium hover:brightness-110 transition-all w-full md:w-auto shadow-[0_0_25px_rgba(209,164,61,0.25)] hover:shadow-[0_0_35px_rgba(209,164,61,0.4)]"
             >
-              Zu den Demos & Briefings
+              Zu den Demos & Preisen
             </Link>
           </div>
 
