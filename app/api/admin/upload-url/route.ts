@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { nanoid } from "nanoid";
+export const runtime = "edge";
 import { createAudioUploadUrl } from "@/lib/r2";
 
 export async function POST(request: NextRequest) {

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { nanoid } from "nanoid";
+export const runtime = "edge";
 import { deleteSongById, getAllSongs, insertSong } from "@/lib/d1";
 import { deleteAudioObject } from "@/lib/r2";
 
