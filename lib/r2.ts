@@ -2,7 +2,6 @@ import { S3Client, PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 function getR2Client(): S3Client {
-  // Prüft beide gängigen Namen für die Account ID, um Fehler zu vermeiden
   const accountId = process.env.R2_ACCOUNT_ID || process.env.CLOUDFLARE_ACCOUNT_ID;
   const accessKeyId = process.env.R2_ACCESS_KEY_ID;
   const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
@@ -17,12 +16,18 @@ function getR2Client(): S3Client {
 
   return new S3Client({
     region: "auto",
-    // Fallback auf "FEHLT", damit das SDK niemals auf der Festplatte sucht
     endpoint: `https://${accountId || "FEHLT"}.r2.cloudflarestorage.com`,
     credentials: {
       accessKeyId: accessKeyId || "FEHLT",
       secretAccessKey: secretAccessKey || "FEHLT",
     },
+    // 🚀 DER WORKAROUND GEGEN DEN "fs.readFile" ABSTURZ:
+    // Wenn wir diese Werte explizit setzen, versucht das AWS SDK nicht 
+    // mehr, eine lokale Config-Datei auf der Festplatte zu laden!
+    maxAttempts: 3,
+    retryMode: "standard",
+    useFipsEndpoint: false,
+    useDualstackEndpoint: false,
   });
 }
 
