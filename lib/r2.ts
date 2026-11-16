@@ -6,28 +6,20 @@ function getR2Client(): S3Client {
   const accessKeyId = process.env.R2_ACCESS_KEY_ID;
   const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
 
-  if (!accountId || !accessKeyId || !secretAccessKey) {
-    console.error("🚨 KRITISCHER R2-FEHLER: Zugangsdaten fehlen im Worker!", {
-      hatAccountId: !!accountId,
-      hatAccessKey: !!accessKeyId,
-      hatSecret: !!secretAccessKey
-    });
-  }
+  // 🚀 DER ULTIMATIVE WORKAROUND:
+  // Wir gaukeln dem AWS SDK vor, dass seine gesuchten Standard-Variablen existieren.
+  // Dadurch bricht es den Versuch ab, die Festplatte (fs.readFile) auszulesen!
+  process.env.AWS_ACCESS_KEY_ID = accessKeyId || "FEHLT";
+  process.env.AWS_SECRET_ACCESS_KEY = secretAccessKey || "FEHLT";
+  process.env.AWS_REGION = "us-east-1"; // R2 ignoriert die Region, aber AWS verlangt zwingend dieses Format
 
   return new S3Client({
-    region: "auto",
+    region: "us-east-1",
     endpoint: `https://${accountId || "FEHLT"}.r2.cloudflarestorage.com`,
     credentials: {
       accessKeyId: accessKeyId || "FEHLT",
       secretAccessKey: secretAccessKey || "FEHLT",
     },
-    // 🚀 DER WORKAROUND GEGEN DEN "fs.readFile" ABSTURZ:
-    // Wenn wir diese Werte explizit setzen, versucht das AWS SDK nicht 
-    // mehr, eine lokale Config-Datei auf der Festplatte zu laden!
-    maxAttempts: 3,
-    retryMode: "standard",
-    useFipsEndpoint: false,
-    useDualstackEndpoint: false,
   });
 }
 
