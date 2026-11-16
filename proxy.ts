@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { AUTH_COOKIE_NAME, verifyAdminToken } from "@/lib/auth";
 
-export const runtime = "edge";
+export const runtime = "experimental-edge";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Login-Seite und Login-API selbst immer durchlassen
