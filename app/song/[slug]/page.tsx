@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { Sparkles, Heart, FileText, ArrowUpRight } from "lucide-react";
-export const runtime = "edge";
+
 import { getSongBySlug } from "@/lib/d1";
 import SongAudioPlayer from "@/components/SongAudioPlayer";
 
