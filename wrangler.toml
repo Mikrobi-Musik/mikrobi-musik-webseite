@@ -6,3 +6,12 @@ compatibility_flags = ["nodejs_compat"]
 [assets]
 directory = ".open-next/assets"
 binding = "ASSETS"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "mikrobi-musik-db"
+database_id = "2cf8e9ac-e5af-431d-99f8-7674b6c3f055"
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "mikrobi-musik-audio"
