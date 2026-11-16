@@ -11,10 +11,16 @@ let cachedFont: opentype.Font | null = null;
 
 async function loadLaserFont(): Promise<opentype.Font> {
   if (cachedFont) return cachedFont;
-  const response = await fetch("/fonts/arial.ttf");
+  
+  // Basis-URL für Cloudflare Workers ermitteln, da fetch() einen absoluten Pfad benötigt
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.mikrobi-musik.de";
+  const fontUrl = `${baseUrl}/fonts/arial.ttf`;
+  
+  const response = await fetch(fontUrl);
   if (!response.ok) {
-    throw new Error("Schriftdatei /fonts/arial.ttf konnte nicht geladen werden.");
+    throw new Error(`Schriftdatei konnte nicht geladen werden von: ${fontUrl}`);
   }
+  
   const buffer = await response.arrayBuffer();
   cachedFont = opentype.parse(buffer);
   return cachedFont;
