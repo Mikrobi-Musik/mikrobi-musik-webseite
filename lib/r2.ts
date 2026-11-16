@@ -2,20 +2,26 @@ import { S3Client, PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 function getR2Client(): S3Client {
-  const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
+  // Prüft beide gängigen Namen für die Account ID, um Fehler zu vermeiden
+  const accountId = process.env.R2_ACCOUNT_ID || process.env.CLOUDFLARE_ACCOUNT_ID;
   const accessKeyId = process.env.R2_ACCESS_KEY_ID;
   const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
 
   if (!accountId || !accessKeyId || !secretAccessKey) {
-    throw new Error("Cloudflare R2 Umgebungsvariablen fehlen.");
+    console.error("🚨 KRITISCHER R2-FEHLER: Zugangsdaten fehlen im Worker!", {
+      hatAccountId: !!accountId,
+      hatAccessKey: !!accessKeyId,
+      hatSecret: !!secretAccessKey
+    });
   }
 
   return new S3Client({
     region: "auto",
-    endpoint: `https://${accountId}.r2.cloudflarestorage.com`,
+    // Fallback auf "FEHLT", damit das SDK niemals auf der Festplatte sucht
+    endpoint: `https://${accountId || "FEHLT"}.r2.cloudflarestorage.com`,
     credentials: {
-      accessKeyId,
-      secretAccessKey,
+      accessKeyId: accessKeyId || "FEHLT",
+      secretAccessKey: secretAccessKey || "FEHLT",
     },
   });
 }

@@ -19,12 +19,18 @@ interface D1Response<T> {
 }
 
 async function queryD1<T = unknown>(sql: string, params: unknown[] = []): Promise<T[]> {
-  const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
+  // Nutzt R2_ACCOUNT_ID als Fallback, falls CLOUDFLARE_ACCOUNT_ID fehlt
+  const accountId = process.env.CLOUDFLARE_ACCOUNT_ID || process.env.R2_ACCOUNT_ID;
   const databaseId = process.env.CLOUDFLARE_D1_DATABASE_ID;
   const apiToken = process.env.CLOUDFLARE_D1_API_TOKEN;
 
   if (!accountId || !databaseId || !apiToken) {
-    throw new Error("Cloudflare D1 Umgebungsvariablen fehlen.");
+    console.error("🚨 KRITISCHER D1-FEHLER: Datenbank-Zugangsdaten fehlen im Worker!", {
+      hatAccountId: !!accountId,
+      hatDatabaseId: !!databaseId,
+      hatApiToken: !!apiToken
+    });
+    throw new Error("Cloudflare D1 Umgebungsvariablen fehlen. Prüfe die Worker-Einstellungen.");
   }
 
   const url = `https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${databaseId}/query`;
@@ -43,6 +49,7 @@ async function queryD1<T = unknown>(sql: string, params: unknown[] = []): Promis
 
   if (!response.ok || !data.success) {
     const errMsg = data.errors?.map((e) => e.message).join(", ") || response.statusText;
+    console.error(`🚨 D1-ABFRAGE FEHLGESCHLAGEN: ${errMsg}`);
     throw new Error(`D1-Abfrage fehlgeschlagen: ${errMsg}`);
   }
 
