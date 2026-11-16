@@ -18,8 +18,11 @@ export default async function PublicSongPage({ params }: SongPageProps) {
     notFound();
   }
 
+  // 1. KUGELSICHERE URL: Fällt immer auf deine R2-Domain zurück, falls die ENV-Variable fehlt!
   const publicR2Base =
-    (process.env.NEXT_PUBLIC_AUDIO_BASE_URL || process.env.NEXT_PUBLIC_R2_PUBLIC_URL)?.replace(/\/$/, "") || "";
+    (process.env.NEXT_PUBLIC_AUDIO_BASE_URL || process.env.NEXT_PUBLIC_R2_PUBLIC_URL)?.replace(/\/$/, "") || 
+    "https://audio.mikrobi-musik.de";
+    
   const audioUrl = `${publicR2Base}/${song.audio_key}`;
 
   return (
@@ -39,7 +42,6 @@ export default async function PublicSongPage({ params }: SongPageProps) {
               alt="Mikrobi-Musik"
               className="h-24 sm:h-28 w-auto rounded-2xl border border-amber-500/20 object-contain shadow-lg shadow-amber-500/15 transition group-hover:scale-105"
             />
-            
           </a>
         </header>
 
@@ -74,6 +76,7 @@ export default async function PublicSongPage({ params }: SongPageProps) {
           {/* Edler Custom-Player */}
           <SongAudioPlayer
             audioUrl={audioUrl}
+            /* 2. DATEINAME KORRIGIERT: Jetzt mit schönem Leerzeichen und Bindestrich */
             downloadFilename={`${song.title} - Mikrobi-Musik.mp3`}
           />
 
