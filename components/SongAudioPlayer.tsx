@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Play, Pause, Download, Volume2, VolumeX } from "lucide-react";
+import { Play, Pause, Download, Volume2, VolumeX, Loader2 } from "lucide-react";
 
 interface SongAudioPlayerProps {
   audioUrl: string;
@@ -24,6 +24,7 @@ export default function SongAudioPlayer({
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   function togglePlay() {
     const audio = audioRef.current;
@@ -53,6 +54,40 @@ export default function SongAudioPlayer({
     audio.muted = !isMuted;
     setIsMuted(!isMuted);
   }
+
+  const handleDownload = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (isDownloading) return;
+    
+    setIsDownloading(true);
+    
+    try {
+      // Lädt die Datei unsichtbar in den Zwischenspeicher, um CORS-Restriktionen für Downloads zu umgehen
+      const response = await fetch(audioUrl);
+      if (!response.ok) throw new Error("Download fehlgeschlagen");
+      
+      const blob = await response.blob();
+      
+      // Erstellt einen lokalen Link, der das download-Attribut zwingend ausführt
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = downloadFilename; 
+      
+      document.body.appendChild(link);
+      link.click();
+      
+      // Aufräumen
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error("Download-Trick fehlgeschlagen, öffne Fallback:", error);
+      // Notfall-Fallback, falls der Browser den Fetch blockiert
+      window.open(audioUrl, '_blank');
+    } finally {
+      setIsDownloading(false);
+    }
+  };
 
   const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0;
 
@@ -123,14 +158,18 @@ export default function SongAudioPlayer({
           {isPlaying ? "Läuft gerade für dich..." : "Tippe auf Play, um deinen Song zu hören"}
         </span>
 
-        <a
-          href={audioUrl}
-          download={downloadFilename}
-          className="inline-flex items-center gap-2 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-2 text-xs font-medium text-amber-300 transition hover:bg-amber-500/20 hover:text-amber-200"
+        <button
+          onClick={handleDownload}
+          disabled={isDownloading}
+          className="inline-flex items-center gap-2 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-2 text-xs font-medium text-amber-300 transition hover:bg-amber-500/20 hover:text-amber-200 disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          <Download className="h-3.5 w-3.5" />
-          MP3 speichern
-        </a>
+          {isDownloading ? (
+            <Loader2 className="h-3.5 w-3.5 animate-spin" />
+          ) : (
+            <Download className="h-3.5 w-3.5" />
+          )}
+          {isDownloading ? "Wird geladen..." : "MP3 speichern"}
+        </button>
       </div>
     </div>
   );
